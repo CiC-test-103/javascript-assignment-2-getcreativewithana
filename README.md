@@ -1,1 +1,1 @@
-# Assignment2 -CodinginColour Ana Schultz
+# Assignment2 -Coding in Colour Ana Schultz
