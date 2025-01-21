@@ -69,5 +69,40 @@ class Account {
 
 //<-------------------------------DO NOT WRITE ABOVE THIS LINE------------------------------>
 
+// Function to test bank operations
+function testBankOperations() {
+    const bank = new Bank();
+
+    // Create new accounts
+    const johnAccount = bank.createAccount('John Doe', 1000);
+    const janeAccount = bank.createAccount('Jane Doe', 500);
+    console.log('Accounts created:', johnAccount, janeAccount);
+
+    // Perform some operations on John's account
+    johnAccount.deposit(500);
+    johnAccount.withdraw(200);
+
+    // Perform a transfer from John to Jane
+    johnAccount.transfer(300, janeAccount);
+
+    // Check balances
+    const johnFinalBalance = johnAccount.checkBalance();
+    const janeFinalBalance = janeAccount.checkBalance();
+    console.log('John\'s balance:', johnFinalBalance);
+    console.log('Jane\'s balance:', janeFinalBalance);
+
+    // Return balances for testing
+    return {
+        johnFinalBalance,
+        janeFinalBalance,
+        johnTransactionHistory: johnAccount.transactionHistory,
+        janeTransactionHistory: janeAccount.transactionHistory
+    };
+}
+
+module.exports = testBankOperations;
+
+//<-------------------------------DO NOT WRITE ABOVE THIS LINE------------------------------>
+
 
 console.log(testBankOperations());
