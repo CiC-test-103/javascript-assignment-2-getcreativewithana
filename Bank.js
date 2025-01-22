@@ -1,65 +1,67 @@
-// 🏦 Bank and Account System - A.Schultz
+// 🏦 Bank and Account System 
 
-//  🏦 😊Bank Class: Manages multiple accounts 😊 🏦
+//  🏦  Bank Class: Manages multiple accounts  🏦
 class Bank {
     constructor() {
         this.accounts = []; // Stores all accounts in the bank
     }
 
-    //  😊Method to create a new account(name, & deposit)
+    //  🏦 Method to create a new account (name, & initial deposit) 🏦
     createAccount(name, initialDeposit) {
         const newAccount = new Account(name, initialDeposit); // Create a new Account
         this.accounts.push(newAccount); // Add the new Account to the Bank
-        return newAccount; // Return desposit to the the newly created account
+        return newAccount; // Return the newly created account
     }
 }
 
-//  😊🏦 Account Class: Represents a single user's account
+//  🏦 Account Class: Represents a single user's account
 class Account {
     constructor(name, balance = 0) {
-            this.name = name; // Account holder's name
-            this.balance = balance; // Initial balance (default is 0)
-            this.transactionHistory = []; // Keeps a record of all transactions
-        }
-        //Methods are listed below to deposit,& withdraw & transfer
-        // 😊🏦  Method to deposit an amount
+        this.name = name; // Account holder's name
+        this.balance = balance; // Initial balance (default is 0)
+        this.transactionHistory = []; // Keeps a record of all transactions
+    }
+
+    // 😊 Methods are listed below to deposit, withdraw, and transfer
+    // 😊 Method to deposit an amount
     deposit(amount) {
-        this.balance += amount; // Update this balance
-        this.transactionHistory.push({ transactionType: 'Deposit', amount }); // Record the transaction ie transactionType: 'Deposit', amount: 500
+        this.balance += amount; // Update the balance/amount
+        this.transactionHistory.push({ transactionType: 'Deposit', amount }); // Record the transaction
         console.log(`Deposited: $${amount}. New balance: $${this.balance}`);
     }
 
-    //🤑 Method to withdraw an amount
+    // 🤑 Method to withdraw an amount below 🤑 
     withdraw(amount) {
         if (amount > this.balance) {
             console.log('Insufficient funds for withdrawal.');
             return;
         }
-        this.balance -= amount; // Update the balance
+        this.balance -= amount; // Update the balance here
         this.transactionHistory.push({ transactionType: 'Withdrawal', amount }); // Record the transaction
         console.log(`Withdrew: $${amount}. New balance: $${this.balance}`);
     }
 
-    //🤑 Method to transfer an amount to recipient account
+    // 🤑 Method to transfer an amount to recipient account below
     transfer(amount, recipientAccount) {
         if (amount > this.balance) {
             console.log('Insufficient funds for transfer.');
             return;
         }
-        this.withdraw(amount); // Withdraw from the sender's account 
-        recipientAccount.deposit(amount); // Deposit into the recipient's account
-        //🤑 Record the transaction for the transfer
+        this.withdraw(amount); // Withdraw from the sender's account here
+        recipientAccount.deposit(amount); // Deposit money into the recipient's account
+        // 🤑 Record the transaction for the transfer here
         this.transactionHistory.push({ transactionType: 'Transfer', amount, to: recipientAccount.name });
-        // 🤑Record the received transaction in the recipient's account
+        // 🤑 Record the received transaction in the recipient's account here
         recipientAccount.transactionHistory.push({ transactionType: 'Received', amount, from: this.name });
         console.log(`Transferred: $${amount} to ${recipientAccount.name}.`);
     }
 
-    // Method to check the account balance
+    // Method to check the account balance $
     checkBalance() {
-        return this.balance; // Return the current balance
+        return this.balance; // Return the current balance here
     }
 }
+
 
 
 //<-------------------------------DO NOT WRITE ABOVE THIS LINE------------------------------>
