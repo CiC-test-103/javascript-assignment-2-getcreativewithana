@@ -1,74 +1,74 @@
-// 🏦 Bank and Account System 
+// 🦋🏦 Bank and Account System 🏦 🦋 
 
-//  🏦 Bank Class: Manages multiple accounts
+//  🦋🏦 Bank Class: Manages multiple accounts
 class Bank {
     constructor() {
-        this.accounts = []; // Stores all accounts in the bank
+        this.accounts = []; // Stores all accounts in the bank here 
     }
 
-    //  😊 Method to create a new account (name, & initial deposit)
-    createAccount(name, initialDeposit) {
+    //  🦋 This is the method to create an account for a new user 🦋
+    createAccount(name, initialDeposit = 0) {
         const newAccount = new Account(name, initialDeposit); // Create a new Account
         this.accounts.push(newAccount); // Add the new Account to the Bank
         return newAccount; // Return the newly created account
     }
 }
 
-//  🏦 Account Class: Represents a single user's account
+//  🤑 Account Class: Represents a single user's account
 class Account {
     constructor(name, balance = 0) {
         this.name = name; // Account holder's name
-        this.balance = balance; // Initial balance (default is 0)
-        this.transactionHistory = []; // Keeps a record of all transactions
+        this.balance = balance; // Initial balance (default will be 0)
+        this.transactionHistory = []; // Keeps a record of all transactions here
     }
 
     // Methods are listed below to deposit, withdraw, and transfer
-    // 😊🏦 Method to deposit an amount 
+
+    // 🤑 To deposit money into the account 
     deposit(amount) {
-        this.balance += amount; // Update the balance here
-        this.transactionHistory.push({ transactionType: 'Deposit', amount }); // Record the transaction here
-        console.log(`Deposited: $${amount}. New balance: $${this.balance}`);
+        if (amount > 0) {
+            this.balance += amount; // Update the balance here
+            this.transactionHistory.push({ transactionType: 'Deposit', amount }); // Record the transaction here
+            console.log(`Deposited: $${amount}. New balance: $${this.balance}`);
+        } else {
+            console.log('Deposit amount must be greater than zero.');
+        }
     }
 
-    // 🤑 Method to withdraw an amount
+    // 🦋  Method to withdraw an amount🦋 
     withdraw(amount) {
-        if (amount > this.balance) {
-            console.log('Insufficient funds for withdrawal.');
-            return;
+        if (amount > 0 && this.balance >= amount) {
+            this.balance -= amount; // Update the balance here
+            this.transactionHistory.push({ transactionType: 'Withdrawal', amount }); // Record the transaction here
+            console.log(`Withdrew: $${amount}. New balance: $${this.balance}`);
+        } else {
+            console.log('Insufficient funds or invalid withdrawal amount.');
         }
-        this.balance -= amount; // Update the balance here
-        this.transactionHistory.push({ transactionType: 'Withdrawal', amount }); // Record the transaction here
-        console.log(`Withdrew: $${amount}. New balance: $${this.balance}`);
     }
 
-    // 🦋 This is the method to transfer an amount to recipient account
+    // 🦋 To transfer an amount to another recipient account🦋 
     transfer(amount, recipientAccount) {
-        if (amount > this.balance) {
-            console.log('Insufficient funds for transfer.');
-            return;
+        if (amount > 0 && this.balance >= amount) {
+            this.balance -= amount; // Withdraw from the sender's account here 
+            recipientAccount.balance += amount; // Deposit into the recipient's account
+            this.transactionHistory.push({ transactionType: 'Transfer', amount, to: recipientAccount.name });
+            recipientAccount.transactionHistory.push({ transactionType: 'Received', amount, from: this.name });
+            console.log(`Transferred: $${amount} to ${recipientAccount.name}.`);
+        } else {
+            console.log('Insufficient funds or invalid transfer amount.');
         }
-        this.withdraw(amount); // Withdraw from the sender's account here
-        recipientAccount.deposit(amount); // Deposit into the recipient's account here
-        // 🤑 Record the transaction for the transfer here
-        this.transactionHistory.push({ transactionType: 'Transfer', amount, to: recipientAccount.name });
-        // 🤑 Record the received transaction in the recipient's account here
-        recipientAccount.transactionHistory.push({ transactionType: 'Received', amount, from: this.name });
-        console.log(`Transferred: $${amount} to ${recipientAccount.name}.`);
     }
 
-    // 🦋This is the method to check the account balance
+    // 🦋 To check the account balance🦋 
     checkBalance() {
         return this.balance; // Return the current balance here 
     }
 
-    // 🦋This is the nethod to view the transaction history 
-    viewTransactionHistory() {
+    // 🦋 Method to view the transaction history 🦋 
+    getTransactionHistory() {
         return this.transactionHistory; // Return the transaction history here 
     }
 }
-
-
-
 //<-------------------------------DO NOT WRITE ABOVE THIS LINE------------------------------>
 
 // Function to test bank operations
